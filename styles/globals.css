@@ -1,0 +1,13 @@
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+input, textarea, button {
+  display: block;
+  margin: 8px 0;
+}
+label {
+  font-weight: bold;
+}
