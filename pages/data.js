@@ -13,9 +13,9 @@ export default function Data() {
   }, []);
 
   return (
-    <div>
-      <h1>User Data</h1>
-      <table border="1" cellPadding="5" cellSpacing="0">
+    <div className="page-container">
+      <h1 className="title">User Data</h1>
+      <table className="data-table">
         <thead>
           <tr>
             <th>ID</th>

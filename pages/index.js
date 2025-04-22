@@ -106,24 +106,28 @@ export default function Home({ supabaseSession }) {
   // If not authenticated, show signup/login
   if (!supabaseSession) {
     return (
-      <div>
-        <h1>Sign Up / Login</h1>
+      <div className="auth-container">
+        <h1 className="title">Sign Up / Login</h1>
         <form onSubmit={handleAuthSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={authForm.email}
-            onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={authForm.password}
-            onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
-            required
-          />
-          <button type="submit">Sign Up</button>
+          <div className="form-field">
+            <input
+              type="email"
+              placeholder="Email"
+              value={authForm.email}
+              onChange={(e) => setAuthForm({ ...authForm, email: e.target.value })}
+              required
+            />
+          </div>
+          <div className="form-field">
+            <input
+              type="password"
+              placeholder="Password"
+              value={authForm.password}
+              onChange={(e) => setAuthForm({ ...authForm, password: e.target.value })}
+              required
+            />
+          </div>
+          <button type="submit" className="btn">Sign Up</button>
         </form>
       </div>
     );
@@ -132,8 +136,8 @@ export default function Home({ supabaseSession }) {
   // If onboarding complete, show thank you message
   if (step > 3) {
     return (
-      <div>
-        <h1>Onboarding Complete</h1>
+      <div className="auth-container">
+        <h1 className="title">Onboarding Complete</h1>
         <p>Thank you for completing the onboarding flow.</p>
       </div>
     );
@@ -141,8 +145,8 @@ export default function Home({ supabaseSession }) {
 
   // Render wizard steps
   return (
-    <div>
-      <h1>Onboarding - Step {step}</h1>
+    <div className="auth-container">
+      <h1 className="title">Onboarding - Step {step}</h1>
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -150,7 +154,7 @@ export default function Home({ supabaseSession }) {
         }}
       >
         {config[step]?.includes('about_me') && (
-          <div>
+          <div className="form-field">
             <label>About Me</label>
             <textarea
               value={formValues.about}
@@ -159,7 +163,7 @@ export default function Home({ supabaseSession }) {
           </div>
         )}
         {config[step]?.includes('address') && (
-          <div>
+          <div className="form-field">
             <label>Street Address</label>
             <input
               type="text"
@@ -187,7 +191,7 @@ export default function Home({ supabaseSession }) {
           </div>
         )}
         {config[step]?.includes('birthdate') && (
-          <div>
+          <div className="form-field">
             <label>Birthdate</label>
             <input
               type="date"
@@ -196,7 +200,9 @@ export default function Home({ supabaseSession }) {
             />
           </div>
         )}
-        <button type="submit">{step < 3 ? 'Next' : 'Finish'}</button>
+        <button type="submit" className="btn">
+          {step < 3 ? 'Next' : 'Finish'}
+        </button>
       </form>
     </div>
   );

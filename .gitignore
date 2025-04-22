@@ -6,3 +6,4 @@ env.local
 next-env.d.ts
 dist
 build
+.env
