@@ -74,18 +74,13 @@ export default function Admin() {
   );
 
   return (
-    <div>
-      <h1>Admin Configuration</h1>
+    <div className="page-container">
+      <h1 className="title">Admin Configuration</h1>
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div className="admin-flex">
           {/* Available components */}
           <div
-            style={{
-              width: '30%',
-              border: '1px solid #ccc',
-              padding: '10px',
-              minHeight: '150px',
-            }}
+            className="dropzone"
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop(null)}
           >
@@ -96,18 +91,11 @@ export default function Admin() {
               availableComponents.map((c) => (
                 <div
                   key={c.value}
+                  className="component-item"
                   draggable
                   onDragStart={(e) =>
                     e.dataTransfer.setData('component', c.value)
                   }
-                  style={{
-                    padding: '8px',
-                    margin: '4px 0',
-                    border: '1px solid #000',
-                    borderRadius: '4px',
-                    background: '#f9f9f9',
-                    cursor: 'grab',
-                  }}
                 >
                   {c.label}
                 </div>
@@ -119,12 +107,7 @@ export default function Admin() {
           {[2, 3].map((page) => (
             <div
               key={page}
-              style={{
-                width: '30%',
-                border: '1px solid #ccc',
-                padding: '10px',
-                minHeight: '150px',
-              }}
+              className="dropzone"
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop(page)}
             >
@@ -137,18 +120,11 @@ export default function Admin() {
                   return (
                     <div
                       key={value}
+                      className="component-item"
                       draggable
                       onDragStart={(e) =>
                         e.dataTransfer.setData('component', value)
                       }
-                      style={{
-                        padding: '8px',
-                        margin: '4px 0',
-                        border: '1px solid #000',
-                        borderRadius: '4px',
-                        background: '#f1f1f1',
-                        cursor: 'grab',
-                      }}
                     >
                       {comp?.label || value}
                     </div>
@@ -158,7 +134,7 @@ export default function Admin() {
             </div>
           ))}
         </div>
-        <button type="submit" style={{ marginTop: '1rem' }}>
+        <button type="submit" className="btn save-btn">
           Save
         </button>
       </form>

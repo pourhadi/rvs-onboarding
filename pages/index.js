@@ -63,20 +63,33 @@ export default function Home({ supabaseSession }) {
     setLoading(true);
     const { email, password } = authForm;
     // Attempt to sign up the user
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) {
-      // Show error and stop loading
-      alert(error.message);
-      setLoading(false);
-      return;
+    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({ email, password });
+    if (signUpError) {
+      // If user already exists, attempt to sign in
+      if (signUpError.message.includes('User already registered')) {
+        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+        if (signInError) {
+          alert(signInError.message);
+          setLoading(false);
+          return;
+        }
+        // On successful sign in, auth listener will handle session and navigation
+        setLoading(false);
+        return;
+      } else {
+        // Other error during sign up
+        alert(signUpError.message);
+        setLoading(false);
+        return;
+      }
     }
-    // If no session is returned, email confirmation is required
-    if (!data.session) {
+    // If no session is returned after sign up, email confirmation is required
+    if (!signUpData.session) {
       alert('A confirmation email has been sent. Please check your inbox to verify your account.');
       setLoading(false);
       return;
     }
-    // On success (session exists), auth listener will handle updating session and advancing to step 2
+    // On successful sign up with session, auth listener will handle session and navigation
   };
 
   // Handle each wizard step submission
